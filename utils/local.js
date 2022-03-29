@@ -28,8 +28,7 @@ export const savePost = async (post) => {
 };
 
 export const deleteLocalFilesFromPost = (post) => {
-  const id = selectIdFromSlug(post);
-  const filename = getMatchedFilenames(id);
-  fs.rmSync(path.join(POST_FOLDERS, filename));
+  const filenames = getMatchedFilenames(post);
+  fs.rmSync(path.join(POST_FOLDERS, filenames[0]));
   return post;
 };
