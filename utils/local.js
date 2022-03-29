@@ -8,7 +8,7 @@ import _ from "lodash";
 import matter from "gray-matter";
 import glob from "glob";
 
-const POST_FOLDERS = path.join(BASE_FLUIDFEED, "data/_posts");
+const POST_FOLDERS = path.join(BASE_FLUIDFEED, "data/blog");
 const getMatchedFilenames = (post) => {
   return glob.sync(selectIdFromSlug(post) + "-*.mdx", { cwd: POST_FOLDERS });
 };
