@@ -14,13 +14,13 @@ const main = async (pageSize = 10, pageToken = undefined) => {
   // fetch all the post from notion
   const remoteResp = await getNotionPublishedBlogPosts(pageSize, pageToken);
   const remotePosts = _.map(remoteResp.results, pageToPostTransformer);
-  console.log("remote posts");
-  console.log(remotePosts);
+  // console.log("remote posts");
+  // console.log(remotePosts);
 
   // first fetch all the local post
   const localPosts = getLocalPublishedBlogs(remotePosts);
-  console.log("local posts");
-  console.log(localPosts);
+  // console.log("local posts");
+  // console.log(localPosts);
 
   // compare the difference
   // not pulled from remote
@@ -38,9 +38,9 @@ const main = async (pageSize = 10, pageToken = undefined) => {
   console.log(diffRemoteByUpdateTime);
 
   // persist the difference to local files
-  // _.map(diffRemote, savePost);
+  _.map(diffRemote, savePost);
 
-  // _.map(diffRemoteByUpdateTime, _.flow(deleteLocalFilesFromPost, savePost));
+  _.map(diffRemoteByUpdateTime, _.flow(deleteLocalFilesFromPost, savePost));
 
   // if there's no next cusor, end the process
   if (!remoteResp.next_cursor) return;

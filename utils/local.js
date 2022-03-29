@@ -15,7 +15,7 @@ const getMatchedFilenames = (post) => {
 
 export const getLocalPublishedBlogs = (otherBlogs) => {
   return _.flatten(_.map(otherBlogs, getMatchedFilenames)).map((file) => ({
-    post: matter(fs.readFileSync(path.join(POST_FOLDERS, file))),
+    ...matter(fs.readFileSync(path.join(POST_FOLDERS, file))).data,
   }));
 };
 
