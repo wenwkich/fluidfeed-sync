@@ -18,7 +18,7 @@ export const pageToPostTransformer = (page) => {
   return {
     id: page.id,
     title: page.properties.Title.title[0].plain_text,
-    tags: page.properties.Tags.multi_select,
+    tags: page.properties.Tags.multi_select.map((tag) => tag.name),
     date: page.properties.Updated.last_edited_time,
     slug: page.properties.Slug.formula.string,
   };
