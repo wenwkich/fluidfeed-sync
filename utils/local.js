@@ -10,7 +10,7 @@ import glob from "glob";
 
 const POST_FOLDERS = path.join(BASE_FLUIDFEED, "data/_posts");
 const getMatchedFilenames = (post) => {
-  return glob.sync(selectIdFromSlug(post) + "-*.md", { cwd: POST_FOLDERS });
+  return glob.sync(selectIdFromSlug(post) + "-*.mdx", { cwd: POST_FOLDERS });
 };
 
 export const getLocalPublishedBlogs = (otherBlogs) => {
@@ -21,7 +21,7 @@ export const getLocalPublishedBlogs = (otherBlogs) => {
 
 export const savePost = async (post) => {
   const markdown = await postToMarkdownTransformer(post);
-  const filename = path.join(POST_FOLDERS, post.slug + ".md");
+  const filename = path.join(POST_FOLDERS, post.slug + ".mdx");
   const content = postMarkdownCombiner(post, markdown);
   fs.writeFileSync(filename, content);
   return post;
