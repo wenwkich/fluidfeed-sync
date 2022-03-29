@@ -30,8 +30,8 @@ const main = async (pageSize = 10, pageToken = undefined) => {
 
   // update time from remote is different from local
   const diffRemoteByUpdateTime = _.differenceBy(
-    remotePosts,
     localPosts,
+    remotePosts,
     (post) => post.date
   );
   console.log("difference from update date");
