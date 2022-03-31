@@ -61,17 +61,9 @@ export const getNotionPublishedBlogPosts = (
 )(NOTION_CLIENT, DB_ID);
 
 // get single post selected by slug id
-export const getNotionSinglePost = ((notionClient, dbId) => async (slug) => {
-  const response = await notionClient.databases.query({
-    database_id: dbId,
-    filter: {
-      property: "id",
-      formula: {
-        text: {
-          equals: "equals",
-        },
-      },
-    },
+export const getNotionSinglePost = ((notionClient, dbId) => async (id) => {
+  const response = await notionClient.pages.retrieve({
+    page_id: id,
   });
-  return response.results;
+  return response;
 })(NOTION_CLIENT, DB_ID);
