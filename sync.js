@@ -14,13 +14,13 @@ const main = async (pageSize = 10, pageToken = undefined) => {
   // fetch all the post from notion
   const remoteResp = await getNotionPublishedBlogPosts(pageSize, pageToken);
   const remotePosts = _.map(remoteResp.results, pageToPostTransformer);
-  // console.log("remote posts");
-  // console.log(remotePosts);
+  console.log("remote posts");
+  console.log(remotePosts);
 
   // first fetch all the local post
   const localPosts = getLocalPublishedBlogs(remotePosts);
-  // console.log("local posts");
-  // console.log(localPosts);
+  console.log("local posts");
+  console.log(localPosts);
 
   // compare the difference
   // not pulled from remote
@@ -33,7 +33,7 @@ const main = async (pageSize = 10, pageToken = undefined) => {
     localPosts,
     remotePosts,
     (post) => post.date
-  );
+  ).map((local) => _.find(remotePosts, (post) => post.id === local.id));
   console.log("difference from update date");
   console.log(diffRemoteByUpdateTime);
 
