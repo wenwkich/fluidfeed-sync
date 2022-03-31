@@ -9,6 +9,7 @@
     "glob": "^7.2.0",
     "gray-matter": "^4.0.3",
     "lodash": "^4.17.21",
+    "notion-client": "../react-notion-x/packages/notion-client",
     "notion-to-md": "^2.3.2"
   },
   "type": "module"

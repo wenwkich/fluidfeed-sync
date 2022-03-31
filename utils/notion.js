@@ -1,18 +1,24 @@
 import {
   NOTION_INTEGRATION_TOKEN,
   NOTION_BLOG_DATABASE_ID,
+  NOTION_ACTIVE_USER,
 } from "./constants.js";
 
 import { Client } from "@notionhq/client";
 import { NotionToMarkdown } from "notion-to-md";
 import _ from "lodash";
 import matter from "gray-matter";
+import { NotionAPI } from "notion-client";
 
 const NOTION_CLIENT = new Client({
   auth: NOTION_INTEGRATION_TOKEN,
 });
 const N2M = new NotionToMarkdown({ notionClient: NOTION_CLIENT });
 const DB_ID = NOTION_BLOG_DATABASE_ID ?? "";
+const API = new NotionAPI({
+  activeUser: NOTION_ACTIVE_USER,
+  authToken: NOTION_INTEGRATION_TOKEN,
+});
 
 export const pageToPostTransformer = (page) => {
   return {
@@ -61,9 +67,12 @@ export const getNotionPublishedBlogPosts = (
 )(NOTION_CLIENT, DB_ID);
 
 // get single post selected by slug id
-export const getNotionSinglePost = ((notionClient, dbId) => async (id) => {
-  const response = await notionClient.pages.retrieve({
+export const getNotionSinglePost = ((notionClient, api) => async (id) => {
+  const page = await notionClient.pages.retrieve({
     page_id: id,
   });
-  return response;
-})(NOTION_CLIENT, DB_ID);
+
+  const recordMap = await api.getPage(id);
+  page.recordMap = recordMap;
+  return page;
+})(NOTION_CLIENT, API);
