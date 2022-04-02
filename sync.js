@@ -96,5 +96,5 @@ const modulePath = path.resolve(fileURLToPath(import.meta.url));
 const isRunningDirectlyViaCLI = nodePath === modulePath;
 
 if (isRunningDirectlyViaCLI) {
-  syncMarkdown();
+  syncNotionBlocks();
 }
